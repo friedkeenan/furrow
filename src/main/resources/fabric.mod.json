@@ -1,0 +1,42 @@
+{
+    "schemaVersion": 1,
+    "id": "furrow",
+    "version": "${version}",
+
+    "name": "Furrow",
+    "description": "Imprison entities to a single line of blocks!",
+    "authors": [
+        "friedkeenan"
+    ],
+
+    "contact": {
+        "homepage": "https://github.com/friedkeenan/furrow",
+        "sources": "https://github.com/friedkeenan/furrow",
+        "issues": "https://github.com/friedkeenan/furrow/issues"
+    },
+
+    "license": "ISC",
+    "icon": "assets/furrow/icon.png",
+
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "io.github.friedkeenan.furrow.FurrowMod"
+        ],
+
+        "client": [
+            "io.github.friedkeenan.furrow.FurrowClientMod"
+        ]
+    },
+
+    "mixins": [
+        "furrow.mixins.json"
+    ],
+
+    "depends": {
+        "fabricloader": ">=0.14.17",
+        "fabric-api": "*",
+        "minecraft": "~1.19.4",
+        "java": ">=17"
+    }
+}

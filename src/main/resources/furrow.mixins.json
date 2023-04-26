@@ -1,0 +1,32 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "io.github.friedkeenan.furrow.mixin",
+    "compatibilityLevel": "JAVA_17",
+
+    "mixins": [
+        "AddFurrow",
+        "CheckNoFurrowCollision",
+        "ManagePlayerFurrow",
+        "TrackEntityStopSleeping",
+        "PlayerRespawnLogicInvoker",
+        "ManagePlayerRespawn",
+        "ManageDismountFurrow",
+        "CannotUseItemOutsideFurrow",
+        "NoBlockInteractionOutsideFurrow",
+        "NoEntityInteractionOutsideFurrow",
+        "ClientsideNoBlockInteractionOutsideFurrow",
+        "CannotCollectExperienceOrItemsOutsideFurrow"
+    ],
+
+    "client": [
+        "RenderFurrow",
+        "RenderFurrowVignette",
+        "ClientsideNoInteractionOutsideFurrow",
+        "ClientsideCannotUseOnEntitiesOutsideFurrow"
+    ],
+
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
