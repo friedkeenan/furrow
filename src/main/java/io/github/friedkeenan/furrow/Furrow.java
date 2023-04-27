@@ -171,6 +171,10 @@ public class Furrow {
         return this.scaled_shapes.computeIfAbsent(scale, s -> this.makeShape(s));
     }
 
+    public boolean isHorizontal() {
+        return this.type == Type.HORIZONTAL;
+    }
+
     public BoundInfo getBoundInfo(Level level) {
         final var real_intercept = this.realIntercept(level.dimensionType().coordinateScale());
 

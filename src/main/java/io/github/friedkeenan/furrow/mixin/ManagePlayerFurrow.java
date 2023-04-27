@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 
@@ -23,6 +24,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 
 @Mixin(ServerPlayer.class)
 public class ManagePlayerFurrow {
@@ -96,5 +98,32 @@ public class ManagePlayerFurrow {
         }
 
         return furrowed_entity.getFurrow().get().isWithinBounds(this.asServerPlayer().level, pos);
+    }
+
+    @ModifyExpressionValue(
+        at = @At(
+            value  = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerLevel;getSharedSpawnPos()Lnet/minecraft/core/BlockPos;"
+        ),
+
+        method = "fudgeSpawnLocation"
+    )
+    private BlockPos furrowedSpawnPos(BlockPos original) {
+        final var furrowed_entity = (FurrowedEntity) this;
+
+        if (furrowed_entity.getFurrow().isEmpty()) {
+            return original;
+        }
+
+        final var furrow = furrowed_entity.getFurrow().get();
+        final var bounds = furrow.getBoundInfo(this.asServerPlayer().level);
+
+        switch (bounds.axis()) {
+            case X: return new BlockPos(Mth.floor(bounds.intercept()), original.getY(), original.getZ());
+            case Z: return new BlockPos(original.getX(), original.getY(), Mth.floor(bounds.intercept()));
+
+            default:
+            case Y: return original;
+        }
     }
 }

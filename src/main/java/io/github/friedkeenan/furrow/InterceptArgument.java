@@ -7,6 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.coordinates.WorldCoordinate;
+import net.minecraft.util.Mth;
 
 public class InterceptArgument implements ArgumentType<WorldCoordinate> {
 	private InterceptArgument() { }
@@ -20,7 +21,7 @@ public class InterceptArgument implements ArgumentType<WorldCoordinate> {
 
 		final var unscaled = ctx.getArgument(name, WorldCoordinate.class).get(source.getPosition().get(type.intercept_axis));
 
-		return (int) (source.getLevel().dimensionType().coordinateScale() * unscaled);
+		return Mth.floor(source.getLevel().dimensionType().coordinateScale() * unscaled);
 	}
 
 	@Override

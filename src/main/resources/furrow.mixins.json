@@ -9,7 +9,7 @@
         "CheckNoFurrowCollision",
         "ManagePlayerFurrow",
         "TrackEntityStopSleeping",
-        "PlayerRespawnLogicInvoker",
+        "ServerPlayerAccessor",
         "ManagePlayerRespawn",
         "ManageDismountFurrow",
         "CannotUseItemOutsideFurrow",
